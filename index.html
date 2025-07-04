@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Página Cyberpunk Retro com QR Code</title>
+    <style>
+        /* Reset básico */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #111;
+            color: #00ff99;
+            font-family: 'Courier New', Courier, monospace;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+            flex-direction: column;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 3.5em;
+            color: #00ff99;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px #00ff99, 0 0 20px #00ff99, 0 0 30px #ff00ff;
+            animation: glitch-anim 1.5s infinite;
+            margin-bottom: 50px;
+        }
+
+        @keyframes glitch-anim {
+            0% {
+                text-shadow: 0 0 10px #00ff99, 0 0 20px #00ff99, 0 0 30px #ff00ff;
+                transform: translateX(0);
+            }
+            25% {
+                text-shadow: 0 0 15px #00ff99, 0 0 25px #00ff99, 0 0 35px #ff00ff;
+                transform: translateX(-5px);
+            }
+            50% {
+                text-shadow: 0 0 10px #ff00ff, 0 0 20px #ff00ff, 0 0 30px #00ff99;
+                transform: translateX(5px);
+            }
+            75% {
+                text-shadow: 0 0 15px #ff00ff, 0 0 25px #ff00ff, 0 0 35px #00ff99;
+                transform: translateX(-5px);
+            }
+            100% {
+                text-shadow: 0 0 10px #00ff99, 0 0 20px #00ff99, 0 0 30px #ff00ff;
+                transform: translateX(0);
+            }
+        }
+
+        .qr-code-container {
+            background: rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 0 15px rgba(0, 255, 153, 0.5);
+            margin-top: 30px;
+            display: inline-block;
+        }
+
+        /* Efeito de glitch para o QR code */
+        .qr-code-container img {
+            width: 150px;
+            height: 150px;
+            filter: contrast(150%) brightness(150%);
+            box-shadow: 0 0 5px #00ff99;
+        }
+
+        /* Animação para o efeito de distorção retro */
+        .glitch {
+            position: relative;
+            font-size: 2.5em;
+            letter-spacing: 2px;
+            color: #ff00ff;
+            animation: glitch-effect 1.5s infinite;
+        }
+
+        .glitch::before {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            color: #00ff99;
+            text-shadow: 0 0 8px rgba(0, 255, 153, 0.7);
+            clip-path: inset(10% 0 10% 0);
+            animation: glitch-effect 1.5s infinite alternate-reverse;
+            z-index: -1;
+        }
+
+        @keyframes glitch-effect {
+            0% {
+                clip-path: inset(10% 0 10% 0);
+                transform: translateX(-2px);
+            }
+            50% {
+                clip-path: inset(20% 0 20% 0);
+                transform: translateX(2px);
+            }
+            100% {
+                clip-path: inset(10% 0 10% 0);
+                transform: translateX(-2px);
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <h1 class="glitch" data-text="Cyberpunk Retro QR Code">Cyber-Stream QR Code</h1>
+
+    <div class="qr-code-container" id="qr-code-container">
+        <img id="qr-code" src="" alt="QR Code">
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.4.4/build/qrcode.min.js"></script>
+    <script>
+        // Função para gerar QR Code
+        function generateQRCode(text) {
+            const qrCodeContainer = document.getElementById("qr-code");
+            QRCode.toDataURL(text, { errorCorrectionLevel: 'H', width: 150 }, function (err, url) {
+                if (err) throw err;
+                qrCodeContainer.src = url;
+            });
+        }
+
+        // Chave do QR Code que pode ser alterada
+        let chave = "https://exemplo.com/sua-chave"; // Edite aqui a chave do QR Code
+        generateQRCode(chave);
+    </script>
+
+</body>
+</html>
